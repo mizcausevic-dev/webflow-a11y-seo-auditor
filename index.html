@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>A11y &amp; SEO Auditor: a Webflow Designer Extension</title>
+  <meta name="description" content="A Webflow Designer Extension that audits heading structure, image alt text, link text and page SEO, jumps to each issue on the canvas, and fixes heading levels in one click.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230b0c10%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%276%27 fill=%27%235b8cff%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="public/styles.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+  <a class="brand" href="./"><span class="dot" aria-hidden="true"></span>A11y &amp; SEO Auditor</a>
+  <nav><a href="#install">Install</a><a href="https://github.com/mizcausevic-dev/webflow-a11y-seo-auditor">GitHub</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="eyebrow">Webflow Designer Extension · Designer API</div>
+    <h1>Catch accessibility and SEO issues while you design.</h1>
+    <p>This extension runs in the Webflow Designer's side panel. It checks the current page for heading-order mistakes, missing or file-name alt text, vague or empty links, and title, meta and Open Graph gaps. Click an issue to select that element on the canvas, or fix a heading level in one click. Here the extension runs against a <strong>simulated Designer</strong> that implements the same API methods.</p>
+  </section>
+
+  <div class="grid cols-2">
+    <section>
+      <div class="panel" id="auditor" aria-live="polite"></div>
+    </section>
+    <section class="card">
+      <h2>Simulated canvas <small>selection and fixes made by the extension show up here</small></h2>
+      <div class="canvas" id="canvas" aria-label="Simulated Webflow canvas"></div>
+    </section>
+  </div>
+
+  <section class="card mt-16" id="install">
+    <h2>Run it in the real Designer</h2>
+    <pre class="code">npm i -g @webflow/webflow-cli
+git clone https://github.com/mizcausevic-dev/webflow-a11y-seo-auditor && cd webflow-a11y-seo-auditor
+webflow extension serve        # serves ./public on localhost:1337
+# Webflow Designer → Apps → your registered App → Launch development App
+webflow extension bundle       # bundle.zip to upload for your App</pre>
+    <p class="hint">You need a Webflow App registered in your Workspace with the Designer Extension capability turned on. The extension only reads the page, except when you click "Fix level", which calls <code>setHeadingLevel()</code>.</p>
+  </section>
+</main>
+
+<footer class="site"><div class="wrap">
+  <span>Built by <a href="https://github.com/mizcausevic-dev">Miz Causevic</a> · Kinetic Gain LLC</span>
+  <span>Independent project, not affiliated with or endorsed by Webflow, Inc. · MIT licensed</span>
+</div></footer>
+<script type="module" src="public/demo.js"></script>
+</body>
+</html>

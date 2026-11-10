@@ -1,0 +1,15 @@
+{
+  "name": "webflow-a11y-seo-auditor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Webflow Designer Extension that audits accessibility and SEO on the current page.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "dev": "webflow extension serve",
+    "bundle": "webflow extension bundle",
+    "start": "python3 -m http.server 8080"
+  },
+  "engines": { "node": ">=20" }
+}
