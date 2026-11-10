@@ -7,7 +7,13 @@
 
 **Live demo: https://mizcausevic-dev.github.io/webflow-a11y-seo-auditor/**. The extension runs against a simulated Designer that implements the same API methods, so you can click issues, select elements and fix headings.
 
+[![A11y & SEO Auditor, a Webflow Designer Extension](docs/social-card.png)](https://mizcausevic-dev.github.io/webflow-a11y-seo-auditor/)
+
 A **Webflow Designer Extension** that audits the page open in the Designer for accessibility and SEO problems. You can jump to any flagged element on the canvas and fix heading levels with one click, without leaving the Designer.
+
+## See it in action
+
+![Recording of the live demo](docs/demo.gif)
 
 ## What it checks
 
