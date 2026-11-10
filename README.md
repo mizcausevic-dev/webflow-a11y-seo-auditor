@@ -64,7 +64,7 @@ You need a Webflow App registered in your Workspace with the Designer Extension 
 
 ## Verification status
 
-- **Tested:** 10 tests. They cover the adapter against the mock, a known-positive control (the sample page fires every rule it can), a known-negative control (a clean page scores 100 with zero issues), heading, link and alt rules, the one-click fix round-trip (`setHeadingLevel` → re-scan → issue gone), and manifest validity. A headless-browser smoke test of the demo covers scan → fix → select.
+- **Tested:** 9 tests. They cover the adapter against the mock, a known-positive control (the sample page fires every rule it can), a known-negative control (a clean page scores 100 with zero issues), heading, link and alt rules, the one-click fix round-trip (`setHeadingLevel` → re-scan → issue gone), and manifest validity. A headless-browser smoke test of the demo covers scan → fix → select.
 - **Not yet tested:** a run inside a live Webflow Designer. The mock follows the published type definitions, but real-Designer behavior (for example, element order from `getAllElements()` inside components) still needs to be confirmed.
 
 ## License
