@@ -44,7 +44,8 @@ public/                      ← the extension (served by `webflow extension ser
   lib/collect.js             adapter: Designer API → plain snapshot (the only file that knows the API)
   lib/audit.js               pure rules over the snapshot: unit-testable, no API access
   lib/ui.js                  panel UI (textContent only)
-  lib/mock-webflow.js        API-shaped mock used by the tests and the demo
+demo/                        ← never shipped in the extension bundle (a test enforces this)
+  mock-webflow.js            API-shaped mock used by the tests and the demo
   demo.js                    demo harness: mock Designer + canvas renderer
 webflow.json                 extension manifest (apiVersion 2, publicDir public)
 ```
@@ -64,7 +65,7 @@ You need a Webflow App registered in your Workspace with the Designer Extension 
 
 ## Verification status
 
-- **Tested:** 9 tests. They cover the adapter against the mock, a known-positive control (the sample page fires every rule it can), a known-negative control (a clean page scores 100 with zero issues), heading, link and alt rules, the one-click fix round-trip (`setHeadingLevel` → re-scan → issue gone), and manifest validity. A headless-browser smoke test of the demo covers scan → fix → select.
+- **Tested:** 11 tests. They cover the adapter against the mock, linked images named by their alt text, a check that no demo or mock code ships in the extension bundle, a known-positive control (the sample page fires every rule it can), a known-negative control (a clean page scores 100 with zero issues), heading, link and alt rules, the one-click fix round-trip (`setHeadingLevel` → re-scan → issue gone), and manifest validity. A headless-browser smoke test of the demo covers scan → fix → select.
 - **Not yet tested:** a run inside a live Webflow Designer. The mock follows the published type definitions, but real-Designer behavior (for example, element order from `getAllElements()` inside components) still needs to be confirmed.
 
 ## License

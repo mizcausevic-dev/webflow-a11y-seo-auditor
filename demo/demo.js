@@ -1,6 +1,6 @@
-// Demo harness only (not shipped in the extension bundle's entry): mock Designer + canvas renderer.
-import { createMockWebflow, SAMPLE } from './lib/mock-webflow.js';
-import { mountAuditor } from './lib/ui.js';
+// Demo harness only. Lives outside public/ so it is never shipped in the extension bundle.
+import { createMockWebflow, SAMPLE } from './mock-webflow.js';
+import { mountAuditor } from '../public/lib/ui.js';
 
 const webflow = createMockWebflow(structuredClone(SAMPLE));
 const canvas = document.getElementById('canvas');

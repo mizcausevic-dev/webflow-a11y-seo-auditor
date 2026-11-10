@@ -7,10 +7,14 @@
 
 export const idKey = (id) => (id && typeof id === 'object' ? `${id.component}:${id.element}` : String(id));
 
-/** Concatenated text of an element's String descendants (bounded depth). */
+/**
+ * Accessible-name text of an element: String descendants plus the alt text of nested images
+ * (a linked logo is named by its alt). Bounded depth.
+ */
 export async function textOf(el, depth = 0) {
   if (!el || depth > 6) return '';
   if (el.type === 'String' && typeof el.getText === 'function') return (await el.getText()) ?? '';
+  if (el.type === 'Image' && typeof el.getAltText === 'function') return ` ${(await el.getAltText()) ?? ''} `;
   if (!el.children || typeof el.getChildren !== 'function') return '';
   const kids = await el.getChildren();
   const parts = [];

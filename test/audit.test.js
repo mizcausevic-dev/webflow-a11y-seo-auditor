@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { collect, textOf, idKey } from '../public/lib/collect.js';
 import { audit, RULES } from '../public/lib/audit.js';
-import { createMockWebflow, SAMPLE } from '../public/lib/mock-webflow.js';
+import { createMockWebflow, SAMPLE } from '../demo/mock-webflow.js';
 import { readFileSync } from 'node:fs';
 
 const fresh = () => createMockWebflow(structuredClone(SAMPLE));
@@ -75,6 +75,26 @@ test('missing H1 and long alt text', () => {
   const page = { title: 'x'.repeat(40), description: 'y'.repeat(100), ogTitle: 'a', ogDescription: 'b' };
   const r = audit({ page, nodes: [{ key: 'h', kind: 'heading', level: 2, text: 'Only H2' }, { key: 'i', kind: 'image', alt: 'a'.repeat(200) }] });
   assert.deepEqual(r.issues.map((i) => i.rule).sort(), ['H1-MISSING', 'IMG-ALT-LONG']);
+});
+
+test('an image with alt text inside a link gives the link its accessible name', async () => {
+  const wf = createMockWebflow({
+    page: { slug: 'x', title: 'x'.repeat(40), description: 'y'.repeat(100), ogUsesTitle: true, ogDescription: 'z' },
+    tree: [
+      { type: 'Heading', level: 1, children: ['T'] },
+      { type: 'Link', href: '/', children: [{ type: 'Image', alt: 'Acme home' }] },
+      { type: 'Link', href: '/x', children: [{ type: 'Image', alt: '' }] },
+    ],
+  });
+  const r = audit(await collect(wf));
+  assert.equal(r.issues.filter((i) => i.rule === 'LINK-EMPTY').length, 1, 'only the link whose image has no alt is empty');
+});
+
+test('extension bundle (public/) contains no demo or mock code', async () => {
+  const { readdirSync } = await import('node:fs');
+  const walk = (d) => readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}/${e.name}`) : [`${d}/${e.name}`]));
+  const files = walk(new URL('../public', import.meta.url).pathname);
+  assert.ok(!files.some((f) => /mock|demo/.test(f)), files.join(', '));
 });
 
 test('helpers', async () => {
